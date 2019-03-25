@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 添加 resultmap的配置处理数据库表中与实力类字段不一致的问题 -->
+<mapper namespace="com.httpapi.bmy.dao.UserDao">
+    <select id="userLogin"  resultType="com.httpapi.bmy.model.User" >
+       select * from shop_user where user_name = #{phone} and user_pwd = #{pwd}
+   </select>
+
+    <insert id="addUser">
+        insert into shop_user (user_name, user_pwd, user_nicname) values (#{phone},#{pwd},#{nickname})
+    </insert>
+
+    <update id="setAddress">
+/*String truename, String address, String uid*/
+        update shop_user set user_truename=#{truename},user_addres=#{address} where id=#{uid}
+    </update>
+</mapper>

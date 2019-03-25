@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 添加 resultmap的配置处理数据库表中与实力类字段不一致的问题 -->
+<mapper namespace="com.httpapi.bmy.dao.OrderDao">
+    <insert id="addShopOrder">
+        insert into shop_order (user_id, commodity_id, order_number, order_total, order_size) values
+        <foreach collection="lis" item="i" separator=","  close=";">
+            (#{i.uid},#{i.sid},#{timeTemper},#{i.total},#{i.size})
+        </foreach>
+
+    </insert>
+
+    <delete id="delShopCar" parameterType="int">
+        delete from shop_cart where user_id=#{uid}
+    </delete>
+
+    <update id="updateMoney">
+        update shop_user set user_money=#{mon} where id=#{uid}
+    </update>
+
+    <select id="checkOrder" resultType="com.httpapi.bmy.model.Order">
+        select * from shop_order where user_id=#{userid} and order_status=#{status}
+    </select>
+</mapper>

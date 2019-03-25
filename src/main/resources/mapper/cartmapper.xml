@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 添加 resultmap的配置处理数据库表中与实力类字段不一致的问题 -->
+<mapper namespace="com.httpapi.bmy.dao.CartDao">
+
+    <insert id="addCart">
+        insert into shop_cart (user_id,commodity_id) values (#{userid},#{shopid})
+    </insert>
+
+    <select id="selectCart" resultType="hashmap">
+       select shop_cart.cart_nums,shop_cart.id as cid,shop_commodity.* FROM shop_cart,shop_commodity where shop_commodity.id=shop_cart.commodity_id and user_id=#{userid}
+    </select>
+
+    <delete id="deleteCart" parameterType="int">
+        delete from shop_cart where id=#{cid}
+    </delete>
+
+    <select id="checkCart" resultType="hashmap">
+       select * from shop_cart where user_id=#{userid} and commodity_id=#{shopid}
+    </select>
+</mapper>

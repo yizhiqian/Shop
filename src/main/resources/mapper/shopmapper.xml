@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 添加 resultmap的配置处理数据库表中与实力类字段不一致的问题 -->
+<mapper namespace="com.httpapi.bmy.dao.ShopDao">
+   <select id="showPhones"  resultType="com.httpapi.bmy.model.Commodity" parameterType="int">
+       select * from shop_commodity order by id desc limit #{StartPage},#{TotalPage}
+   </select>
+    <select id="getShopInfo"  resultType="com.httpapi.bmy.model.Commodity" parameterType="int">
+       select * from shop_commodity where id=#{id}
+   </select>
+    <select id="getShopClass" resultType="com.httpapi.bmy.model.Commodity"  parameterType="String">
+      select * from shop_commodity where commodity_brand  =#{brand}
+    </select>
+</mapper>
